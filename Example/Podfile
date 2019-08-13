@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'NFAPageView_Example' do
+  pod 'NFAPageView', :path => '../'
+
+  target 'NFAPageView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

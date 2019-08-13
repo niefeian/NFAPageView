@@ -1,0 +1,16 @@
+PODS:
+  - NFAPageView (0.0.1)
+
+DEPENDENCIES:
+  - NFAPageView (from `../`)
+
+EXTERNAL SOURCES:
+  NFAPageView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  NFAPageView: 7ea3a1a8d30534fecf1a1732d2e973874c5aa097
+
+PODFILE CHECKSUM: 1bf11e3499cb591e4ff7efcd4e5e5fabbceba739
+
+COCOAPODS: 1.6.1
