@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NFAPageView'
-  s.version          = '0.0.1'
+  s.version          = '0.0.2'
   s.summary          = 'A short description of NFAPageView.'
 
 # This description is used to generate tags and improve search results.
@@ -31,7 +31,6 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'NFAPageView/Classes/**/*'
-
   s.swift_version = '5.0'
   
   # s.resource_bundles = {
