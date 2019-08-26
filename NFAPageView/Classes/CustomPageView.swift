@@ -19,12 +19,11 @@ open class CustomLayout: NSObject {
     /* 标题颜色，请使用RGB赋值 */
     @objc public var titleColor: UIColor? = UIColor.gray
     
-    /* 标题选中颜色，请使用RGB赋值 */
-    @objc public var titleSelectColor: UIColor? = UIColor.black
-    
-    /*分割线颜色*/
+    /* 剑阁县颜色，请使用RGB赋值 */
     @objc public var lineViewColor: UIColor? = UIColor.clear
     
+    /* 标题选中颜色，请使用RGB赋值 */
+    @objc public var titleSelectColor: UIColor? = UIColor.black
     
     /* 标题字号 */
     @objc public var titleFont: UIFont? = UIFont.systemFont(ofSize: 15)
@@ -217,6 +216,7 @@ public class CustomPageView: UIView {
             let nextButton = getbuttons[index]
             
             if layout.sliderWidth == getsliderDefaultWidth {
+                
                 if layout.isAverage {
                     let adjustX = (nextButton.frame.size.width - getlineWidths[index]) * 0.5
                     sliderLineView.frame.origin.x = nextButton.frame.origin.x + adjustX
@@ -543,6 +543,8 @@ extension CustomPageView {
         if isClick {
             return false
         }
+        
+        
         //目的是改变它的值，让制滑动第一个和最后一个的时候（-0.5），导致数组下标越界
         var offsetX = offsetX
         
