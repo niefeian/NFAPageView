@@ -14,8 +14,8 @@ class ViewController: UIViewController {
     
     private lazy  var viewControllers: [UIViewController]  = {
         var  viewCons = [UIViewController]()
-        let fistVC = UITableViewController()
-        let lastVC = UITableViewController()
+        let fistVC = SubVC()
+        let lastVC = SubVC()
         fistVC.view.backgroundColor = UIColor.red
         lastVC.view.backgroundColor = UIColor.blue
         viewCons.append(fistVC)

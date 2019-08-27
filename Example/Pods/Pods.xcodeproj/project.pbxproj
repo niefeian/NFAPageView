@@ -15,6 +15,9 @@
 		5EEC9C376FD33F00780701ACBB145CD1 /* Pods-NFAPageView_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A753E528F8E6328150AFC83A47AEAD01 /* Pods-NFAPageView_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		674A773DB628F2CADE4A37F8DAC2FA19 /* CustomAdvancedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7656C221773044532A62A4A05EA3F48B /* CustomAdvancedManager.swift */; };
 		9CBC28B6F9AA984BDB1BA5B99447B0D3 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E313227B45105A253E2BF478A80197 /* CustomExtension.swift */; };
+		A62A1CEF231500390050533A /* CustomSimpleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62A1CED231500390050533A /* CustomSimpleManager.swift */; };
+		A62A1CF0231500390050533A /* CustomTableViewProtocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62A1CEE231500390050533A /* CustomTableViewProtocal.swift */; };
+		A62A1CF4231500CD0050533A /* CustomTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62A1CF3231500CD0050533A /* CustomTableView.swift */; };
 		C43B1D888EA1C7BF627AFDF81440EF02 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
 		C9EA3642D02FDAC7526C869A60F3B347 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */; };
 		CE07D8C88D3F03AB4BA28CDACC6BB86C /* Pods-NFAPageView_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E64B461D386EB01C822FE20047103C3C /* Pods-NFAPageView_Tests-dummy.m */; };
@@ -39,7 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		06B389CAB882C3FE82E493B0188FF166 /* NFAPageView.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = NFAPageView.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		06B389CAB882C3FE82E493B0188FF166 /* NFAPageView.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = NFAPageView.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		0BED7E305F52BC2022A68D900A2B61B7 /* Pods-NFAPageView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NFAPageView_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		0C034AC599411E6BCB24B11BAC9619FD /* Pods-NFAPageView_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-NFAPageView_Example-frameworks.sh"; sourceTree = "<group>"; };
 		22BEC341BB2AF18342A1EFB0F463A681 /* Pods-NFAPageView_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-NFAPageView_Tests-Info.plist"; sourceTree = "<group>"; };
@@ -47,19 +50,22 @@
 		40A664E619944D4CE54D77DAECC2D26D /* Pods-NFAPageView_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-NFAPageView_Tests.modulemap"; sourceTree = "<group>"; };
 		411EFB60841B9430805679CC5E054269 /* Pods-NFAPageView_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-NFAPageView_Example.modulemap"; sourceTree = "<group>"; };
 		41323EFAAE283F4F1EE22900806BE024 /* Pods-NFAPageView_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-NFAPageView_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		48DDE0BE81575B9EEBD140A08F0EC91B /* Pods_NFAPageView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_NFAPageView_Tests.framework; path = "Pods-NFAPageView_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		48DDE0BE81575B9EEBD140A08F0EC91B /* Pods_NFAPageView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NFAPageView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4948BBFA66704DF58F77B9D4D2F169DC /* Pods-NFAPageView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NFAPageView_Example.release.xcconfig"; sourceTree = "<group>"; };
-		584F3B87D99790110445CCBB8ED0C46B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		584F3B87D99790110445CCBB8ED0C46B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		5985B990B7A9BDF56D91CE32BB194BE3 /* NFAPageView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = NFAPageView.xcconfig; sourceTree = "<group>"; };
 		6F09EE638C294435A41FC8437C729CBB /* NFAPageView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NFAPageView-dummy.m"; sourceTree = "<group>"; };
 		7656C221773044532A62A4A05EA3F48B /* CustomAdvancedManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CustomAdvancedManager.swift; path = NFAPageView/Classes/CustomAdvancedManager.swift; sourceTree = "<group>"; };
 		76DBC17FBF1610692D9E09568B9E7776 /* Pods-NFAPageView_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-NFAPageView_Example-Info.plist"; sourceTree = "<group>"; };
-		84C699B9CE486040F646C6F4549BEAE9 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		866461DCF3998CAE25E7BFD39B862F6A /* NFAPageView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = NFAPageView.framework; path = NFAPageView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		84C699B9CE486040F646C6F4549BEAE9 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		866461DCF3998CAE25E7BFD39B862F6A /* NFAPageView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NFAPageView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		917A9C67DE8D1A1E70A67470F1B6F73D /* Pods-NFAPageView_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-NFAPageView_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		91A615BA16311F135D7367CB9F66A5F6 /* NFAPageView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NFAPageView-umbrella.h"; sourceTree = "<group>"; };
 		9688E97246D5D1DD7F169517DC129287 /* Pods-NFAPageView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NFAPageView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A62A1CED231500390050533A /* CustomSimpleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomSimpleManager.swift; path = NFAPageView/Classes/CustomSimpleManager.swift; sourceTree = "<group>"; };
+		A62A1CEE231500390050533A /* CustomTableViewProtocal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomTableViewProtocal.swift; path = NFAPageView/Classes/CustomTableViewProtocal.swift; sourceTree = "<group>"; };
+		A62A1CF3231500CD0050533A /* CustomTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomTableView.swift; path = NFAPageView/Classes/CustomTableView.swift; sourceTree = "<group>"; };
 		A753E528F8E6328150AFC83A47AEAD01 /* Pods-NFAPageView_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-NFAPageView_Tests-umbrella.h"; sourceTree = "<group>"; };
 		B301E4DB2A51EF21424BF9461C18580E /* CustomPageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CustomPageView.swift; path = NFAPageView/Classes/CustomPageView.swift; sourceTree = "<group>"; };
 		B85420AE58C88771BD911007EB25B63A /* Pods-NFAPageView_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-NFAPageView_Example-dummy.m"; sourceTree = "<group>"; };
@@ -69,7 +75,7 @@
 		E59DECF81A2DF70CC28BE1529D9C4A3C /* Pods-NFAPageView_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-NFAPageView_Example-umbrella.h"; sourceTree = "<group>"; };
 		E64B461D386EB01C822FE20047103C3C /* Pods-NFAPageView_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-NFAPageView_Tests-dummy.m"; sourceTree = "<group>"; };
 		E6E313227B45105A253E2BF478A80197 /* CustomExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CustomExtension.swift; path = NFAPageView/Classes/CustomExtension.swift; sourceTree = "<group>"; };
-		EA9AA9027A9AC0F605CD9CD3E5F05F12 /* Pods_NFAPageView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_NFAPageView_Example.framework; path = "Pods-NFAPageView_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA9AA9027A9AC0F605CD9CD3E5F05F12 /* Pods_NFAPageView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NFAPageView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC8CA26AF3B3D8DB2A72AA72C70471B1 /* NFAPageView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NFAPageView-prefix.pch"; sourceTree = "<group>"; };
 		EEB41D4A45CF4340A1E0D6586D172D5B /* Pods-NFAPageView_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-NFAPageView_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		F53E3F03A17648A354656238A6B698F8 /* NFAPageView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "NFAPageView-Info.plist"; sourceTree = "<group>"; };
@@ -147,6 +153,9 @@
 		3A4FD8D4EA0C35ED79A353DC5D911C2F /* NFAPageView */ = {
 			isa = PBXGroup;
 			children = (
+				A62A1CF3231500CD0050533A /* CustomTableView.swift */,
+				A62A1CED231500390050533A /* CustomSimpleManager.swift */,
+				A62A1CEE231500390050533A /* CustomTableViewProtocal.swift */,
 				7656C221773044532A62A4A05EA3F48B /* CustomAdvancedManager.swift */,
 				E6E313227B45105A253E2BF478A80197 /* CustomExtension.swift */,
 				B301E4DB2A51EF21424BF9461C18580E /* CustomPageView.swift */,
@@ -327,6 +336,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
@@ -370,8 +380,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A62A1CEF231500390050533A /* CustomSimpleManager.swift in Sources */,
 				674A773DB628F2CADE4A37F8DAC2FA19 /* CustomAdvancedManager.swift in Sources */,
+				A62A1CF0231500390050533A /* CustomTableViewProtocal.swift in Sources */,
 				9CBC28B6F9AA984BDB1BA5B99447B0D3 /* CustomExtension.swift in Sources */,
+				A62A1CF4231500CD0050533A /* CustomTableView.swift in Sources */,
 				FF36337C6DB7E31A9D542143BF91A0E5 /* CustomPageView.swift in Sources */,
 				199CB3BA10180C96B8F2024DD5FD3ADD /* NFAPageView-dummy.m in Sources */,
 			);
@@ -725,8 +738,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
