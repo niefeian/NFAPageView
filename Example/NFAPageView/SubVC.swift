@@ -13,7 +13,7 @@ class SubVC: UITableViewController , CustomTableViewProtocal {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        getscrollView = tableView
         // Do any additional setup after loading the view.
     }
     
