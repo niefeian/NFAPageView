@@ -65,7 +65,7 @@ open class CustomLayout: NSObject {
     @objc public var scale: CGFloat = 1.1
     
     /* 是否开启颜色渐变 */
-    @objc public var isColorAnimation: Bool = true
+    @objc public var isColorAnimation: Bool = false
     
     /* 是否隐藏底部线 */
     @objc public var isHiddenPageBottomLine: Bool = false
@@ -87,6 +87,12 @@ open class CustomLayout: NSObject {
     
     /* 内部使用-外界不要调用 */
     var isSinglePageView: Bool = false
+    
+     @objc public weak var delegate: CustomPageViewTitleDelegate?
+}
+
+@objc public protocol CustomPageViewTitleDelegate: class {
+    @objc optional func titleSelectIndex(_ index : Int) -> Bool
 }
 
 public typealias PageViewDidSelectIndexBlock = (CustomPageView, Int) -> Void
@@ -343,9 +349,9 @@ extension CustomPageView {
     }
     
     @objc private func titleSelectIndex(_ btn: UIButton)  {
-        
-        setupTitleSelectIndex(btn.tag)
-        
+        if layout.delegate?.titleSelectIndex?(btn.tag) ?? true {
+            setupTitleSelectIndex(btn.tag)
+        }
     }
     
     private func setupTitleSelectIndex(_ btnSelectIndex: Int) {
