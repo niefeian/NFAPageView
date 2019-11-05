@@ -88,7 +88,7 @@ open class CustomLayout: NSObject {
     /* 内部使用-外界不要调用 */
     var isSinglePageView: Bool = false
     
-     @objc public weak var delegate: CustomPageViewTitleDelegate?
+    @objc public weak var delegate: CustomPageViewTitleDelegate?
 }
 
 @objc public protocol CustomPageViewTitleDelegate: class {
@@ -134,7 +134,6 @@ public class CustomPageView: UIView {
     
     /* pageView的scrollView左右滑动监听 */
     @objc public weak var delegate: CustomPageViewDelegate?
-    
     
     public var titleViewY: CGFloat? {
         didSet {
@@ -419,6 +418,7 @@ extension CustomPageView {
         if viewControllers.count == 4 {
             viewControllerY = 30
         }
+        
         VC.view.frame = CGRect(x: scrollView.bounds.width * CGFloat(index), y: viewControllerY, width: scrollView.bounds.width, height: scrollView.bounds.height - viewControllerY)
         scrollView.addSubview(VC.view)
         currentViewController.addChild(VC)

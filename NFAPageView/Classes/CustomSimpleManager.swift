@@ -80,6 +80,7 @@ public class CustomSimpleManager: UIView {
     private weak var currentViewController: UIViewController?
     private var pageView: CustomPageView!
     private var currentSelectIndex: Int = 0
+  
     
     private lazy var tableView: CustomTableView = {
         let tableView = CustomTableView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height), style:.plain)

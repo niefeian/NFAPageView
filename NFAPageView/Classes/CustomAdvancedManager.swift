@@ -142,8 +142,8 @@ extension CustomAdvancedManager {
         guard let getscrollView = getscrollView else { return }
         //当前ScrollView的contentSize的高 = 当前ScrollView的的高 避免自动掉落
         let sliderH = self.layout.sliderHeight
-        if getscrollView.contentSize.height < getscrollView.bounds.height - sliderH {
-            getscrollView.contentSize.height = getscrollView.bounds.height - sliderH
+        if getscrollView.contentSize.height < getscrollView.bounds.height - sliderH - kHeaderHeight{
+            getscrollView.contentSize.height = getscrollView.bounds.height - sliderH - kHeaderHeight
         }
     }
     
