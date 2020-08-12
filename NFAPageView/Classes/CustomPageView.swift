@@ -28,6 +28,9 @@ open class CustomLayout: NSObject {
     /* 标题字号 */
     @objc public var titleFont: UIFont? = UIFont.systemFont(ofSize: 15)
     
+    
+    @objc public var titleSelectFont: UIFont? = UIFont.systemFont(ofSize: 15)
+    
     /* 滑块底部线的颜色 - UIColor.blue */
     @objc public var bottomLineColor: UIColor? = UIColor.black
     
@@ -43,8 +46,18 @@ open class CustomLayout: NSObject {
      */
     @objc public var isAverage: Bool = true
     
+    /*
+    * 是否允许滚动控制器
+    */
+    @objc public var isOnlySlider: Bool = false
+    
     /* 滑块底部线的高 */
     @objc public var bottomLineHeight: CGFloat = 1.0
+    
+     /* 滑块底部线的宽  若为0 则根据按钮适配 */
+    @objc public var bottomLineWidth: CGFloat = 0
+    
+    @objc public var bottomLineMarginTop: CGFloat = 0
     
     /* 滑块底部线圆角 */
     @objc public var bottomLineCornerRadius: CGFloat = 0.0
@@ -114,7 +127,7 @@ public class CustomPageView: UIView {
     private var titles: [String]
     open var layout: CustomLayout = CustomLayout()
     
-    private var getcurrentIndex: Int = 0;
+    public var getcurrentIndex: Int = 0;
     private var getbuttons: [UIButton] = []
     private var gettextWidths: [CGFloat] = []
     private var getstartOffsetX: CGFloat = 0.0
@@ -149,7 +162,8 @@ public class CustomPageView: UIView {
     }()
     
     private lazy var sliderLineView: UIView = {
-        let sliderLineView = UIView(frame: CGRect(x: self.layout.lrMargin, y: self.pageTitleView.bounds.height - layout.bottomLineHeight - layout.pageBottomLineHeight, width: 0, height: self.layout.bottomLineHeight))
+        
+        let sliderLineView = UIView(frame: CGRect(x: self.layout.lrMargin, y: self.pageTitleView.bounds.height - layout.bottomLineHeight - layout.pageBottomLineHeight + layout.bottomLineMarginTop, width: layout.bottomLineWidth, height: self.layout.bottomLineHeight))
         sliderLineView.backgroundColor = self.layout.bottomLineColor
         return sliderLineView
     }()
@@ -163,7 +177,7 @@ public class CustomPageView: UIView {
     /*如果按钮只有一个的话，这边需要在外部重新设置sliderScrollView的值*/
     open lazy var sliderScrollView: UIScrollView = {
         let sliderScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: pageTitleView.bounds.width, height: pageTitleView.bounds.height))
-        sliderScrollView.tag = 403
+        sliderScrollView.tag = 1403
         sliderScrollView.showsHorizontalScrollIndicator = false
         sliderScrollView.bounces = false
         return sliderScrollView
@@ -171,16 +185,30 @@ public class CustomPageView: UIView {
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height))
-        scrollView.contentSize = CGSize(width: self.bounds.width * CGFloat(self.titles.count), height: 0)
-        scrollView.tag = 302
+       
+        if !layout.isOnlySlider
+        {
+             scrollView.contentSize = CGSize(width: self.bounds.width * CGFloat(self.titles.count), height: 0)
+        }
+        else
+        {
+           scrollView.contentSize = CGSize(width: self.bounds.width, height: 0)
+        }
+        scrollView.tag = 1302
         scrollView.isPagingEnabled = true
         scrollView.delegate = self
         scrollView.bounces = layout.isShowBounces
         scrollView.isScrollEnabled = layout.isScrollEnabled
         scrollView.showsHorizontalScrollIndicator = layout.showsHorizontalScrollIndicator
+        
         return scrollView
     }()
+
     
+    @objc public func setContentSize(_ size : CGSize)
+    {
+         scrollView.contentSize = size
+    }
     
     @objc public init(frame: CGRect, currentViewController: UIViewController, viewControllers:[UIViewController], titles: [String], layout: CustomLayout) {
         self.currentViewController = currentViewController
@@ -197,9 +225,11 @@ public class CustomPageView: UIView {
         }
         addSubview(scrollView)
         addSubview(pageTitleView)
-        buttonsLayout()
+       
         pageTitleView.addSubview(sliderScrollView)
         sliderScrollView.addSubview(sliderLineView)
+        
+        buttonsLayout()
         pageTitleView.addSubview(pageBottomLineView)
         pageTitleView.isHidden = layout.isHiddenPageBottomLine
         sliderLineView.isHidden = layout.isHiddenSlider
@@ -214,6 +244,7 @@ public class CustomPageView: UIView {
         if index >= titles.count {
             print("超过最大数量限制, 请正确设置值, 默认这里取第一个")
             index = 0
+            return
         }
         
         if isClickScrollAnimation {
@@ -224,11 +255,15 @@ public class CustomPageView: UIView {
                 
                 if layout.isAverage {
                     let adjustX = (nextButton.frame.size.width - getlineWidths[index]) * 0.5
-                    sliderLineView.frame.origin.x = nextButton.frame.origin.x + adjustX
-                    sliderLineView.frame.size.width = getlineWidths[index]
+//                    sliderLineView.frame.origin.x = nextButton.frame.origin.x + adjustX
+//                    sliderLineView.frame.size.width = getlineWidths[index]
+                    
+                    changeSliderLineViewFrame(nextButton.frame.origin.x + adjustX,  getlineWidths[index])
                 }else {
-                    sliderLineView.frame.origin.x = nextButton.frame.origin.x
-                    sliderLineView.frame.size.width = nextButton.frame.width
+//                    sliderLineView.frame.origin.x = nextButton.frame.origin.x
+//                    sliderLineView.frame.size.width = nextButton.frame.width
+                    
+                    changeSliderLineViewFrame(nextButton.frame.origin.x, nextButton.frame.width)
                 }
                 
             }else {
@@ -243,6 +278,25 @@ public class CustomPageView: UIView {
         
     }
     
+    func changeSliderLineViewFrame(_ x : CGFloat ,_ width : CGFloat)
+    {
+        if layout.bottomLineWidth > 0
+        {
+            sliderLineView.frame.origin.x = x + (width - layout.bottomLineWidth)/2
+            sliderLineView.frame.size.width  = layout.bottomLineWidth
+        }
+        else
+        {
+            sliderLineView.frame.origin.x = x
+            sliderLineView.frame.size.width  = width
+        }
+        
+    }
+    
+    @objc public func upLoadScrollView()  {
+        setupScrollView()
+    }
+        
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -251,7 +305,7 @@ public class CustomPageView: UIView {
 
 extension CustomPageView {
     
-    
+    //初始化按钮
     private func buttonsLayout() {
         
         if titles.count == 0 { return }
@@ -291,13 +345,16 @@ extension CustomPageView {
             
             let button = subButton(frame: CGRect(x: upX, y: subY, width: subW, height: subH), flag: index, title: titles[index], parentView: sliderScrollView)
             button.setTitleColor(layout.titleColor, for: .normal)
-        
+            button.titleLabel?.font = layout.titleFont
             if index == 0 {
                 button.setTitleColor(layout.titleSelectColor, for: .normal)
+                button.titleLabel?.font = layout.titleSelectFont
                 createViewController(0)
             }
             if titles.count == 4 {
                 button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+                button.titleLabel?.font = layout.titleFont
+                
             }
             
             upX = button.frame.origin.x + subW + layout.titleMargin
@@ -313,15 +370,12 @@ extension CustomPageView {
         // lineView的宽度为第一个的宽度
         if layout.sliderWidth == getsliderDefaultWidth {
             if layout.isAverage {
-                sliderLineView.frame.size.width = getlineWidths[0]
-                sliderLineView.frame.origin.x = (gettextWidths[0] - getlineWidths[0]) * 0.5 + layout.lrMargin
+                 changeSliderLineViewFrame((gettextWidths[0] - getlineWidths[0]) * 0.5 + layout.lrMargin,  getlineWidths[0])
             }else {
-                sliderLineView.frame.size.width = getbuttons[0].frame.size.width
-                sliderLineView.frame.origin.x = getbuttons[0].frame.origin.x
+                changeSliderLineViewFrame(getbuttons[0].frame.origin.x, getbuttons[0].frame.size.width)
             }
         }else {
-            sliderLineView.frame.size.width = layout.sliderWidth
-            sliderLineView.frame.origin.x = ((gettextWidths[0] + layout.lrMargin * 2) - layout.sliderWidth) * 0.5
+              changeSliderLineViewFrame(((gettextWidths[0] + layout.lrMargin * 2) - layout.sliderWidth) * 0.5, layout.sliderWidth)
         }
         
         if layout.bottomLineCornerRadius != 0.0 {
@@ -334,6 +388,7 @@ extension CustomPageView {
             sliderScrollView.contentSize = CGSize(width: pageTitleView.bounds.width, height: 0)
             return
         }
+        
         
         // 计算sliderScrollView的contentSize
         let sliderContenSizeW = upX - layout.titleMargin + layout.lrMargin
@@ -348,26 +403,74 @@ extension CustomPageView {
     }
     
     @objc private func titleSelectIndex(_ btn: UIButton)  {
-        if layout.delegate?.titleSelectIndex?(btn.tag) ?? true {
-            setupTitleSelectIndex(btn.tag)
+        titleSelectToIndex(btn.tag)
+    }
+    
+    @objc public func titleSelectToIndex(_ toIndex: Int)  {
+        if layout.delegate?.titleSelectIndex?(toIndex) ?? true {
+            setupTitleSelectIndex(toIndex)
         }
+        else
+        {
+            if layout.isOnlySlider
+            {
+                chengSliderLineView(toIndex)
+            }
+        }
+    }
+    
+    
+    
+    private func chengSliderLineView(_ btnSelectIndex : Int)
+    {
+        let nextButton = getbuttons[btnSelectIndex]
+        let adjustX = (nextButton.frame.size.width - getlineWidths[btnSelectIndex]) * 0.5
+        changeSliderLineViewFrame(nextButton.frame.origin.x + adjustX,  getlineWidths[btnSelectIndex])
+        
+        setupSlierScrollToCenter(offsetX: adjustX, index: btnSelectIndex)
+        if !isClickScrollAnimation
+        {
+            for button in getbuttons {
+                if button.tag == btnSelectIndex {
+                   button.setTitleColor(self.layout.titleSelectColor, for: .normal)
+                   button.titleLabel?.font = layout.titleSelectFont
+                }else {
+                   button.setTitleColor(self.layout.titleColor, for: .normal)
+                   button.titleLabel?.font = layout.titleFont
+                }
+            }
+        }
+        else
+        {
+            setupIsClickScrollAnimation(index: btnSelectIndex)
+        }
+       
     }
     
     private func setupTitleSelectIndex(_ btnSelectIndex: Int) {
         
-        if getcurrentIndex == btnSelectIndex || scrollView.isDragging || scrollView.isDecelerating {
+        if (getcurrentIndex == btnSelectIndex && btnSelectIndex != 0) || scrollView.isDragging || scrollView.isDecelerating {
+             if layout.isOnlySlider
+             {
+                chengSliderLineView(btnSelectIndex)
+            }
             return
         }
         
         let totalW = bounds.width
-        
-        isClick = true
-        getisClickScrollAnimation = true
-        
-        
-        scrollView.setContentOffset(CGPoint(x: totalW * CGFloat(btnSelectIndex), y: 0), animated: isClickScrollAnimation)
-        
-        
+       
+        if totalW * CGFloat(btnSelectIndex) == scrollView.contentOffset.x
+        {
+             chengSliderLineView(btnSelectIndex)
+            return
+        }
+        else
+        {
+            isClick = true
+            getisClickScrollAnimation = true
+            scrollView.setContentOffset(CGPoint(x: totalW * CGFloat(btnSelectIndex), y: 0), animated: isClickScrollAnimation)
+        }
+       
         if isClickScrollAnimation {
             return
         }
@@ -378,11 +481,15 @@ extension CustomPageView {
             
             if layout.isAverage {
                 let adjustX = (nextButton.frame.size.width - getlineWidths[btnSelectIndex]) * 0.5
-                sliderLineView.frame.origin.x = nextButton.frame.origin.x + adjustX
-                sliderLineView.frame.size.width = getlineWidths[btnSelectIndex]
+//                sliderLineView.frame.origin.x = nextButton.frame.origin.x + adjustX
+//                sliderLineView.frame.size.width = getlineWidths[btnSelectIndex]
+                
+                changeSliderLineViewFrame(nextButton.frame.origin.x + adjustX,  getlineWidths[btnSelectIndex])
             }else {
-                sliderLineView.frame.origin.x = nextButton.frame.origin.x
-                sliderLineView.frame.size.width = nextButton.frame.width
+//                sliderLineView.frame.origin.x = nextButton.frame.origin.x
+//                sliderLineView.frame.size.width = nextButton.frame.width
+                
+                 changeSliderLineViewFrame(nextButton.frame.origin.x,  nextButton.frame.width)
             }
             
         }else {
@@ -394,13 +501,20 @@ extension CustomPageView {
     }
     
     
+    private func setupScrollView(){
+        scrollView.setContentOffset(CGPoint(x:scrollView.contentOffset.x, y: 0), animated: isClickScrollAnimation)
+    }
+    
+    
     // currentButton将要滚动到的按钮
     private func setupSliderLineViewWidth(currentButton: UIButton)  {
         let maxLeft = currentButton.frame.origin.x - layout.lrMargin
         let maxRight = maxLeft + layout.lrMargin * 2 + currentButton.frame.size.width
         let originX = (maxRight - maxLeft - layout.sliderWidth) * 0.5  + maxLeft
-        sliderLineView.frame.origin.x = originX
-        sliderLineView.frame.size.width = layout.sliderWidth
+//        sliderLineView.frame.origin.x = originX
+//        sliderLineView.frame.size.width = layout.sliderWidth
+        
+        changeSliderLineViewFrame(originX,  layout.sliderWidth)
     }
     
 }
@@ -508,11 +622,13 @@ extension CustomPageView {
                     button.transform = CGAffineTransform(scaleX: layout.scale , y: layout.scale)
                 }
                 button.setTitleColor(self.layout.titleSelectColor, for: .normal)
+                button.titleLabel?.font = layout.titleSelectFont
             }else {
                 if layout.isNeedScale {
                     button.transform = CGAffineTransform(scaleX: 1.0 , y: 1.0)
                 }
                 button.setTitleColor(self.layout.titleColor, for: .normal)
+                button.titleLabel?.font = layout.titleFont
             }
         }
         getisClickScrollAnimation = false
@@ -521,6 +637,10 @@ extension CustomPageView {
     private func setupButtonStatusAnimation(upButton: UIButton, currentButton: UIButton)  {
         upButton.setTitleColor(layout.titleColor, for: .normal)
         currentButton.setTitleColor(layout.titleSelectColor, for: .normal)
+        
+        upButton.titleLabel?.font = layout.titleFont
+        currentButton.titleLabel?.font = layout.titleSelectFont
+        
     }
     
     //MARK: 让title的ScrollView滚动到中心点位置
@@ -611,13 +731,22 @@ extension CustomPageView {
                    let previousButton = getbuttons[sourceIndex-1]
                     previousButton.setTitleColor(layout.titleColor, for: .normal)
                     currentButton.setTitleColor(layout.titleSelectColor, for: .normal)
+                    
+                    previousButton.titleLabel?.font = layout.titleFont
+                    currentButton.titleLabel?.font = layout.titleSelectFont
                 }else{
                     currentButton.setTitleColor(layout.titleColor, for: .normal)
                     nextButton.setTitleColor(layout.titleSelectColor, for: .normal)
+                    
+                    currentButton.titleLabel?.font = layout.titleFont
+                    nextButton.titleLabel?.font = layout.titleSelectFont
                 }
             }else{
                 currentButton.setTitleColor(layout.titleColor, for: .normal)
                 nextButton.setTitleColor(layout.titleSelectColor, for: .normal)
+                
+                currentButton.titleLabel?.font = layout.titleFont
+                nextButton.titleLabel?.font = layout.titleSelectFont
             }
 
         }
@@ -648,9 +777,11 @@ extension CustomPageView {
                 // x的该变量
                 let moveX = (nextButton.frame.origin.x + nextButtonAdjustX) - (currentButton.frame.origin.x + currentButtonAdjustX)
                 
-                self.sliderLineView.frame.size.width = getlineWidths[sourceIndex] + moveW * progress
+//                self.sliderLineView.frame.size.width = getlineWidths[sourceIndex] + moveW * progress
+//
+//                self.sliderLineView.frame.origin.x = currentButton.frame.origin.x + moveX * progress + currentButtonAdjustX
                 
-                self.sliderLineView.frame.origin.x = currentButton.frame.origin.x + moveX * progress + currentButtonAdjustX
+                changeSliderLineViewFrame(currentButton.frame.origin.x + moveX * progress + currentButtonAdjustX,  getlineWidths[sourceIndex] + moveW * progress)
                 
             }else {
                 // 计算宽度的该变量
@@ -659,8 +790,10 @@ extension CustomPageView {
                 // 计算X的该变量
                 let moveX = nextButton.frame.origin.x - currentButton.frame.origin.x
                 
-                self.sliderLineView.frame.size.width = currentButton.frame.width + moveW * progress
-                self.sliderLineView.frame.origin.x = currentButton.frame.origin.x + moveX * progress - 0.25
+//                self.sliderLineView.frame.size.width = currentButton.frame.width + moveW * progress
+//                self.sliderLineView.frame.origin.x = currentButton.frame.origin.x + moveX * progress - 0.25
+                
+                changeSliderLineViewFrame(currentButton.frame.origin.x + moveX * progress - 0.25,  currentButton.frame.width + moveW * progress)
             }
             
         }else {
@@ -679,9 +812,11 @@ extension CustomPageView {
             
             let moveX = originNextX - originX
             
-            self.sliderLineView.frame.origin.x = originX + moveX * progress
+//            self.sliderLineView.frame.origin.x = originX + moveX * progress
+//            
+//            sliderLineView.frame.size.width = layout.sliderWidth
             
-            sliderLineView.frame.size.width = layout.sliderWidth
+            changeSliderLineViewFrame(originX + moveX * progress,  layout.sliderWidth)
         }
         
         return false

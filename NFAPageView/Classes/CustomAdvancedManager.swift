@@ -20,6 +20,7 @@ public class CustomAdvancedManager: UIView {
     
     //设置悬停位置Y值
     @objc public var hoverY: CGFloat = 0
+//    @objc public var contentOffsetY: CGFloat = -216//偏移量
     
     /* 点击切换滚动过程动画 */
     @objc public var isClickScrollAnimation = false {
@@ -32,6 +33,25 @@ public class CustomAdvancedManager: UIView {
     @objc public func scrollToIndex(index: Int)  {
         pageView.scrollToIndex(index: index)
     }
+    
+    @objc public func titleSelectToIndex(index: Int)  {
+        pageView.titleSelectToIndex(index)
+    }
+    
+    @objc public func setupScrollView()  {
+        pageView.upLoadScrollView()
+    }
+    
+    @objc public func setContentSize(_ size : CGSize)
+   {
+        pageView.setContentSize(size)
+   }
+    
+    @objc public func getcurrentIndex() -> Int
+    {
+        return pageView.getcurrentIndex
+    }
+    
     
     private var kHeaderHeight: CGFloat = 0.0
     private var currentSelectIndex: Int = 0
@@ -55,6 +75,7 @@ public class CustomAdvancedManager: UIView {
         layout.isSinglePageView = true
         pageView = setupPageViewConfig(currentViewController: currentViewController, layout: layout)
         setupSubViewsConfig(handle)
+        
     }
     
     deinit {
@@ -83,6 +104,7 @@ extension CustomAdvancedManager {
         lastDiffTitleToNav = kHeaderHeight
         setupSubViews()
         addSubview(headerView)
+//        self.contentOffsetY = -1 * kHeaderHeight
     }
     open func updataSubViewsConfig(_ newHight : CGFloat){
         let oldHight = self.headerView?.bounds.size.height ?? 0
@@ -136,6 +158,11 @@ extension CustomAdvancedManager {
             //注意：节流---否则此方法无效。。
             self.setupFirstAddChildScrollView()
         }
+        
+        if viewControllers.count > 0 {
+             pageView.addChildVcBlock?(0, self.viewControllers[0])
+        }
+       
     }
     
     func getadjustScrollViewContentSizeHeight(getscrollView: UIScrollView?) {
@@ -179,6 +206,9 @@ extension CustomAdvancedManager {
             
             self.setupgetscrollViewDidScroll(scrollView: scrollView, currentVC: currentVC)
         }
+//        if let  scrollView = viewController.getscrollView {
+//            viewController.getscrollView?.scrollHandle?(scrollView)
+//        }
     }
     
     //MARK: 当前控制器的滑动方法事件处理 1
@@ -198,10 +228,9 @@ extension CustomAdvancedManager {
         
         //计算上一次偏移和当前偏移量y的差值
         let absOffset = scrollView.contentOffset.y - getupOffset
-        
-        //处理滚动
-        self.contentScrollViewDidScroll(scrollView, absOffset)
-        
+        if scrollView.contentOffset.y > -kHeaderHeight  || absOffset < 0{
+            self.contentScrollViewDidScroll(scrollView, absOffset)
+        }
         //记录上一次的偏移量
         currentVC.getupOffset = String(describing: scrollView.contentOffset.y)
         
@@ -227,7 +256,6 @@ extension CustomAdvancedManager {
         let titleViewBottomDistance = offsetY + kHeaderHeight + layout.sliderHeight
         
         let headerViewOffset = titleViewBottomDistance + pageTitleViewY
-        
         if absOffset > 0 && titleViewBottomDistance > 0 {//向上滑动
             if headerViewOffset >= kHeaderHeight {
                 pageTitleViewY += -absOffset
@@ -311,7 +339,21 @@ extension CustomAdvancedManager {
     }
     
     //MARK: 处理下拉刷新的过程中切换导致的问题
-    private func setupUpViewControllerEndRefreshing() {
+//    private func setupUpViewControllerEndRefreshing() {
+//        //如果正在下拉，则在切换之前把上一个的ScrollView的偏移量设置为初始位置
+//        DispatchQueue.main.after(0.01) {
+//            let upVC = self.viewControllers[self.currentSelectIndex]
+//            guard let getscrollView = upVC.getscrollView else { return }
+//            //判断是下拉
+//            if getscrollView.contentOffset.y < (-self.kHeaderHeight-self.layout.sliderHeight) {
+//                let offsetPoint = CGPoint(x: 0, y: -self.kHeaderHeight-self.layout.sliderHeight)
+//                getscrollView.setContentOffset(offsetPoint, animated: true)
+//            }
+//        }
+//    }
+    
+    
+    public func setupUpViewControllerEndRefreshing() {
         //如果正在下拉，则在切换之前把上一个的ScrollView的偏移量设置为初始位置
         DispatchQueue.main.after(0.01) {
             let upVC = self.viewControllers[self.currentSelectIndex]

@@ -21,13 +21,13 @@ public extension CustomTableViewProtocal {
         return identifier
     }
     
-    public func registerCell(_ tableView: UITableView, _ cellCls: AnyClass) {
+    func registerCell(_ tableView: UITableView, _ cellCls: AnyClass) {
         var identifier = NSStringFromClass(cellCls)
         identifier = configIdentifier(&identifier)
         tableView.register(cellCls, forCellReuseIdentifier: identifier)
     }
     
-    public func cellWithTableView<T: UITableViewCell>(_ tableView: UITableView) -> T {
+    func cellWithTableView<T: UITableViewCell>(_ tableView: UITableView) -> T {
         var identifier = NSStringFromClass(T.self)
         identifier = configIdentifier(&identifier)
         var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
@@ -38,14 +38,14 @@ public extension CustomTableViewProtocal {
     }
     
     /*快速构建表格*/
-    public func tableViewConfig(_ delegate: UITableViewDelegate, _ dataSource: UITableViewDataSource, _ style: UITableView.Style?) -> UITableView  {
+    func tableViewConfig(_ delegate: UITableViewDelegate, _ dataSource: UITableViewDataSource, _ style: UITableView.Style?) -> UITableView  {
         let tableView = UITableView(frame:  CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), style: style ?? .plain)
         tableView.delegate = delegate
         tableView.dataSource = dataSource
         return tableView
     }
     
-    public func tableViewConfig(_ frame: CGRect ,_ delegate: UITableViewDelegate, _ dataSource: UITableViewDataSource, _ style: UITableView.Style?) -> UITableView  {
+    func tableViewConfig(_ frame: CGRect ,_ delegate: UITableViewDelegate, _ dataSource: UITableViewDataSource, _ style: UITableView.Style?) -> UITableView  {
         let tableView = UITableView(frame: frame, style: style ?? .plain)
         tableView.delegate = delegate
         tableView.dataSource = dataSource
