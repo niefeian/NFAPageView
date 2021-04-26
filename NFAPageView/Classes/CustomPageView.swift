@@ -11,7 +11,7 @@ import UIKit
 public let getiphoneX = (UIScreen.main.bounds.height == 812.0)
 private let getsliderDefaultWidth: CGFloat = UIScreen.main.bounds.width/3
 
-open class CustomLayout: NSObject {
+@objc open class CustomLayout: NSObject {
     
     /* pageView背景颜色 */
     @objc public var titleViewBgColor: UIColor? = UIColor.white
@@ -46,6 +46,9 @@ open class CustomLayout: NSObject {
      */
     @objc public var isAverage: Bool = true
     
+    
+//    是否隐藏标题
+    @objc public var hiddenTitle: Bool = false
     /*
     * 是否允许滚动控制器
     */
@@ -120,7 +123,7 @@ public typealias AddChildViewControllerBlock = (Int, UIViewController) -> Void
     @objc optional func getscrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView)
 }
 
-public class CustomPageView: UIView {
+@objc public class CustomPageView: UIView {
     
     private weak var currentViewController: UIViewController?
     private var viewControllers: [UIViewController]
@@ -148,14 +151,14 @@ public class CustomPageView: UIView {
     /* pageView的scrollView左右滑动监听 */
     @objc public weak var delegate: CustomPageViewDelegate?
     
-    public var titleViewY: CGFloat? {
+    @objc public var titleViewY: CGFloat = 0 {
         didSet {
-            guard let updateY = titleViewY else { return }
-            pageTitleView.frame.origin.y = updateY
+//            guard let updateY = titleViewY else { return }
+            pageTitleView.frame.origin.y = titleViewY
         }
     }
     
-    public lazy var pageTitleView: UIView = {
+    @objc public lazy var pageTitleView: UIView = {
         let pageTitleView = UIView(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.layout.sliderHeight))
         pageTitleView.backgroundColor = self.layout.titleViewBgColor
         return pageTitleView
@@ -180,10 +183,12 @@ public class CustomPageView: UIView {
         sliderScrollView.tag = 1403
         sliderScrollView.showsHorizontalScrollIndicator = false
         sliderScrollView.bounces = false
+        sliderScrollView.isHidden = layout.hiddenTitle
+    
         return sliderScrollView
     }()
     
-    private lazy var scrollView: UIScrollView = {
+    @objc public lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height))
        
         if !layout.isOnlySlider
@@ -200,7 +205,7 @@ public class CustomPageView: UIView {
         scrollView.bounces = layout.isShowBounces
         scrollView.isScrollEnabled = layout.isScrollEnabled
         scrollView.showsHorizontalScrollIndicator = layout.showsHorizontalScrollIndicator
-        
+//        scrollView.backgroundColor = .red;
         return scrollView
     }()
 

@@ -12,7 +12,7 @@ import UIKit
     @objc optional func getscrollViewOffsetY(_ offsetY: CGFloat)
 }
 
-public class CustomAdvancedManager: UIView {
+@objc public class CustomAdvancedManager: UIView {
     
     public typealias CustomAdvancedDidSelectIndexHandle = (Int) -> Void
     @objc public var advancedDidSelectIndexHandle: CustomAdvancedDidSelectIndexHandle?
@@ -20,7 +20,8 @@ public class CustomAdvancedManager: UIView {
     
     //设置悬停位置Y值
     @objc public var hoverY: CGFloat = 0
-//    @objc public var contentOffsetY: CGFloat = -216//偏移量
+
+   
     
     /* 点击切换滚动过程动画 */
     @objc public var isClickScrollAnimation = false {
@@ -60,7 +61,7 @@ public class CustomAdvancedManager: UIView {
     private var viewControllers: [UIViewController]
     private var titles: [String]
     private weak var currentViewController: UIViewController?
-    open var pageView: CustomPageView!
+    @objc open var pageView: CustomPageView!
     private var layout: CustomLayout
     
     @objc public init(frame: CGRect, viewControllers: [UIViewController], titles: [String], currentViewController:UIViewController, layout: CustomLayout, headerViewHandle handle: () -> UIView) {
