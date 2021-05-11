@@ -59,7 +59,7 @@ class ViewController: UIViewController {
         /* 代码设置滚动到第几个位置 */
         advancedManager.scrollToIndex(index: 0)
         
-        advancedManager.updataSubViewsConfig(100) //f更新头部高度  留
+        advancedManager.updataSubViewsConfig(300) //f更新头部高度  留
         return advancedManager
     }()
     
