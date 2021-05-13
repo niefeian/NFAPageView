@@ -59,12 +59,12 @@ class ViewController: UIViewController {
         /* 代码设置滚动到第几个位置 */
         advancedManager.scrollToIndex(index: 0)
         
-        advancedManager.updataSubViewsConfig(300) //f更新头部高度  留
+        advancedManager.updataSubViewsConfig(500) //f更新头部高度  留
         return advancedManager
     }()
     
     private func headerView() -> UIView {
-       let headerView = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 100))
+       let headerView = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 500))
         headerView.text = "顶部区域"
         headerView.textAlignment = .center
         headerView.backgroundColor = colorConversion(colorValue: "c3c3c3")

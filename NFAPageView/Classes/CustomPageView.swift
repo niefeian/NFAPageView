@@ -164,6 +164,8 @@ public typealias AddChildViewControllerBlock = (Int, UIViewController) -> Void
         return pageTitleView
     }()
     
+    
+    
     private lazy var sliderLineView: UIView = {
         
         let sliderLineView = UIView(frame: CGRect(x: self.layout.lrMargin, y: self.pageTitleView.bounds.height - layout.bottomLineHeight - layout.pageBottomLineHeight + layout.bottomLineMarginTop, width: layout.bottomLineWidth, height: self.layout.bottomLineHeight))
@@ -187,6 +189,15 @@ public typealias AddChildViewControllerBlock = (Int, UIViewController) -> Void
     
         return sliderScrollView
     }()
+    
+    
+    @objc open func addSliderPageScrollView(pageScrollView : UIView)
+    {
+        pageTitleView.addSubview(pageScrollView)
+//        pageTitleView.isUserInteractionEnabled = true;
+//        self.isUserInteractionEnabled = true;
+//        pageTitleView.backgroundColor = UIColor.red;
+    }
     
     @objc public lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height))

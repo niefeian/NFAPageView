@@ -62,6 +62,8 @@ import UIKit
     private var titles: [String]
     private weak var currentViewController: UIViewController?
     @objc open var pageView: CustomPageView!
+   
+    
     private var layout: CustomLayout
     
     @objc public init(frame: CGRect, viewControllers: [UIViewController], titles: [String], currentViewController:UIViewController, layout: CustomLayout, headerViewHandle handle: () -> UIView) {
@@ -107,7 +109,7 @@ extension CustomAdvancedManager {
         addSubview(headerView)
 //        self.contentOffsetY = -1 * kHeaderHeight
     }
-    open func updataSubViewsConfig(_ newHight : CGFloat){
+   @objc open func updataSubViewsConfig(_ newHight : CGFloat){
         let oldHight = self.headerView?.bounds.size.height ?? 0
         self.headerView?.isHidden = false
         if oldHight != newHight {
